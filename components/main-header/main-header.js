@@ -19,7 +19,7 @@ const MainHeader = () => {
               <Link href="/meals">Browse Meals</Link>
             </li>
             <li>
-              <Link href="/communitu">Foodies Community</Link>
+              <Link href="/community">Foodies Community</Link>
             </li>
           </ul>
         </nav>
