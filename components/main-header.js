@@ -2,12 +2,13 @@ import React from 'react';
 import logoImage from '@/assets/logo.png';
 import Link from 'next/link';
 import styles from './main-header.module.css';
+import Image from 'next/image';
 
 const MainHeader = () => {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo}>
-        <img src={logoImage.src} alt="A plate with food on it" />
+        <Image src={logoImage} alt="A plate with food on it" />
         Next Level Food
       </Link>
       <nav className={styles.nav}>
