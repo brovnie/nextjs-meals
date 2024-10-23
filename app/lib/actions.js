@@ -2,8 +2,13 @@
 
 import { redirect } from 'next/navigation';
 import { saveMeal } from './meals';
+import { revalidatePath } from 'next/cache';
 
-export const shareMeal = async (formData) => {
+function isInvalidData(data) {
+  return !data || data.trim() === '';
+}
+
+export const shareMeal = async (prevState, formData) => {
   const meal = {
     title: formData.get('title'),
     summary: formData.get('summary'),
@@ -12,7 +17,20 @@ export const shareMeal = async (formData) => {
     creator: formData.get('name'),
     creator_email: formData.get('email'),
   };
-
-  await saveMeal(meal);
+  if (
+    isInvalidData(meal.title) ||
+    isInvalidData(meal.summary) ||
+    isInvalidData(meal.instructions) ||
+    isInvalidData(meal.creator) ||
+    isInvalidData(meal.creator_email) ||
+    !meal.creator_email.includes('@') ||
+    !meal.image ||
+    meal.image.size === 0
+  ) {
+    return {
+      message: 'Invalid data',
+    };
+  }
+  revalidatePath('/meals');
   redirect('/meals');
 };
